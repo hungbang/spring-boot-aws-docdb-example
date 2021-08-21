@@ -1,7 +1,12 @@
 package com.bang.springbootawsdocdb;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.util.StringUtils;
+
+import java.lang.invoke.MethodHandles;
 
 @SpringBootApplication
 public class SpringBootAwsDocdbApplication {

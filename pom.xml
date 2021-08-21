@@ -15,6 +15,14 @@
     <description>Demo project for Spring Boot</description>
     <properties>
         <java.version>11</java.version>
+        <jib.plugin.version>2.4.0</jib.plugin.version>
+
+        <image.repo.host>094232140322.dkr.ecr.ap-southeast-1.amazonaws.com</image.repo.host>
+        <image.base>amazoncorretto:8</image.base>
+        <image.teemo.service>${image.repo.host}/twinci-backend-prod</image.teemo.service>
+        <jib.plugin.version>3.0.0</jib.plugin.version>
+        <buildnumber-maven-plugin.version>1.4</buildnumber-maven-plugin.version>
+
     </properties>
     <dependencies>
         <dependency>
@@ -50,6 +58,28 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>${jib.plugin.version}</version>
+                <configuration>
+                    <to>
+                        <image>${image.teemo.service}:${env.VERSION}</image>
+                        <credHelper>ecr-login</credHelper>
+                    </to>
+                    <container>
+                        <jvmFlags>
+                            <jvmFlag>-DsslKeyStore=/rds-truststore.jks</jvmFlag>
+                        </jvmFlags>
+                    </container>
+                    <extraDirectories>
+                        <paths>
+                            <path>sslKeyStore</path>
+                        </paths>
+                    </extraDirectories>
+
                 </configuration>
             </plugin>
         </plugins>
